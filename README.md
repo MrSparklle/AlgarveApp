@@ -1,4 +1,6 @@
-# Algarve Residential mobile App
+# Algarve Residential App
+
+A production mobile app developed using modern thecnologies for Android and iOS
 
 [![Screen Shot 2022-02-10 at 13 43 44](https://user-images.githubusercontent.com/992049/153454832-3cd39190-1f02-449a-92da-b2ac7a940d0a.png)](https://www.youtube.com/watch?v=3LwJyKJN6_Q "Click to watch the app demonstration on Youtube")
 
