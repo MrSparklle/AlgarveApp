@@ -1,0 +1,13 @@
+.image-container {
+  background: url('../../../assets/imgs/login-background.svg');
+  background-position: top;
+  background-repeat: repeat-x;
+
+  .logo {
+    max-width: 80%;
+    margin-top: 2em;
+  }
+}
+ion-content {
+  --ion-background-color: #d8d8d8;
+}

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "554688316104",
+    "firebase_url": "https://algarve-99b2b.firebaseio.com",
+    "project_id": "algarve-99b2b",
+    "storage_bucket": "algarve-99b2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554688316104:android:add7fa01898b9f14",
+        "android_client_info": {
+          "package_name": "br.com.residencialalgarve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554688316104-99o1jjbmvlgnink3d1lmi8iarlfqshni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.residencialalgarve",
+            "certificate_hash": "949d147368753e110af2c4ccc5773a1ac09c05a7"
+          }
+        },
+        {
+          "client_id": "554688316104-2ruhp53ut02s73o7p05cbtk2imfeip93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWz7-wvEC9p9XookCh0733Yf0xkf4NHF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554688316104-2ruhp53ut02s73o7p05cbtk2imfeip93.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "554688316104-p019tkg6kbdfvb74t524jt09gtjgl7oi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.residencialalgarve"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

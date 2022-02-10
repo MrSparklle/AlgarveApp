@@ -1,0 +1,28 @@
+.booking-history {
+  color: var(--ion-color-medium);
+}
+
+.booking-higthlight {
+  background-color: #fefbe7;
+}
+
+.booking-date div#day {
+  font-size: xx-large;
+}
+
+.booking-text {
+  min-width: 0;
+
+  ion-row {
+    padding-top: 3px;
+    .light-gray {
+      color: var(--ion-color-medium);
+      font-style: italic;
+    }
+  }
+
+  ion-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

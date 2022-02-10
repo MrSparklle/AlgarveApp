@@ -1,0 +1,164 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-title> <img src="assets/imgs/algarve-dark.svg" height="46" /> </ion-title>
+    <!--
+      <ion-buttons end>
+        <button ion-button icon-only>
+          <ion-icon name="megaphone"></ion-icon>
+        </button>
+      </ion-buttons>
+    -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment value="notices" color="tertiary" [(ngModel)]="segments" [attr.padding]="isMD ? null : ''">
+    <ion-segment-button value="notices">
+      <ion-label>Notícias</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="incidents">
+      <ion-label>Ocorrências</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segments">
+    <div *ngIf="(publicNotices$ | async) as publicNotices; else: loadingOrError">
+      <div *ngSwitchCase="'notices'">
+        <ion-item lines="none" class="ion-no-margin ion-text-center" *ngIf="profileService.checkAuthorization(profile,['sindico'])">
+          <ion-label>
+            <ion-button color="tertiary" expand="block" [routerLink]="['/tabs/home/notice-add']">
+              Adicionar Notícia
+            </ion-button>
+          </ion-label>
+        </ion-item>
+        <ion-card *ngFor="let publicNotice of publicNotices; let i = index; trackBy: noticesTrackBy" id="'card-'+publicNotice.id">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img [src]="publicNotice.profile.avatarUrl ? publicNotice.profile.avatarUrl : 'assets/imgs/user.svg' " />
+            </ion-avatar>
+            <ion-label>
+              <ion-row>
+                <ion-col class="ion-no-padding">
+                  <h2>{{ publicNotice.title }}</h2>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-justify-content-start">
+                <ion-col size="3" class="ion-no-padding">
+                  <ion-badge class="ion-margin-end" color="tertiary">{{publicNotice.profile.position || 'Morador'}}
+                  </ion-badge>
+                </ion-col>
+                <ion-col class="ion-no-padding">
+                  <ion-note>({{ publicNotice.profile.name }})</ion-note>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+
+          <swiper *ngIf="!!publicNotice.imgUrl" [pagination]="true" [zoom]="true">
+            <ng-template swiperSlide *ngFor="let img of publicNotice.imgUrl">
+              <!-- <ion-img class="slider-img" [src]="img" (click)="openImgModal(publicNotice.title, publicNotice.imgUrl)"></ion-img> -->
+              <img class="slider-img" [src]="img" (click)="openImgModal(publicNotice.title, publicNotice.imgUrl)" />
+            </ng-template>
+          </swiper>
+
+          <ion-card-content>
+            <p>
+              <app-truncated-text [text]="publicNotice.text" limit="200"></app-truncated-text>
+            </p>
+          </ion-card-content>
+
+          <ion-row>
+            <ion-col>
+              <app-like [id]="publicNotice.id" [liked]="publicNotice.like?.liked" [likeCount]="publicNotice.likeCount || 0" (likeChanged)="like(publicNotice.id, $event)"></app-like>
+            </ion-col>
+            <!-- <ion-col> </ion-col> -->
+            <ion-col class="ion-align-self-center ion-text-right ion-padding-end">
+              <ion-note> {{ publicNotice.dateCreated | fromNow }} </ion-note>
+            </ion-col>
+          </ion-row>
+          <ion-item class="card-footer" *ngIf="profileService.checkAuthorization(profile,['sindico'])">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-button color="light" fill="clear" size="small" (click)="deleteNotice(publicNotice.id, i, publicNotice.imgUrl)">
+                    <ion-icon slot="start" name="trash-outline" color="light"></ion-icon>
+                    Excluir
+                  </ion-button>
+                </ion-col>
+                <ion-col class="ion-text-end">
+                  <ion-button color="light" fill="clear" size="small" [routerLink]="['/tabs/home/notice-edit',publicNotice.id]">
+                    <ion-icon slot="start" name="create-outline" color="light"></ion-icon>
+                    Editar
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+
+        <ion-infinite-scroll threshold="10%" (ionInfinite)="loadNotices()" [disabled]="disableInfinite$ | async">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+        <ion-list-header [hidden]="publicNotices.length > 0">
+          <ion-label>Não existem novas notícias</ion-label>
+        </ion-list-header>
+      </div>
+    </div>
+    <!-- Tratamento de erros -->
+
+    <ng-template #loadingOrError>
+      <ion-list-header *ngIf="(loadingError$ | async); else: loading">
+        <ion-label>Erro ao carregar notícias...</ion-label>
+      </ion-list-header>
+
+      <!-- Esqueleto do loading -->
+
+      <ng-template #loading>
+        <div class="custom-skeleton">
+          <ion-card *ngFor="let number of [0, 1, 2, 3]">
+            <ion-item>
+              <ion-avatar slot="start">
+                <ion-skeleton-text></ion-skeleton-text>
+              </ion-avatar>
+              <ion-label>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+              </ion-label>
+            </ion-item>
+            <ion-card-content>
+              <p>
+                <ion-skeleton-text animated style="width: 68%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 77%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+              </p>
+
+              <ion-row>
+                <ion-col>
+                  <ion-note slot="start">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                  </ion-note>
+                </ion-col>
+                <ion-col> </ion-col>
+                <ion-col class="ion-align-self-center ion-text-center">
+                  <ion-note>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                  </ion-note>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ng-template>
+      <!-- Fim do esqueleto do loading -->
+    </ng-template>
+    <!-- Fim do tratamento de erros -->
+
+    <!-- ============================================================ -->
+    <div *ngSwitchCase="'incidents'">
+      <ion-list-header [hidden]="">
+        <ion-label>Não existem ocorrências registradas</ion-label>
+      </ion-list-header>
+    </div>
+  </div>
+</ion-content>

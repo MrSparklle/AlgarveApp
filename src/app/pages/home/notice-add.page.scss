@@ -1,0 +1,27 @@
+.image-containner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  width: 100%;
+
+  .image-containner__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-right: 1rem;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    .image-containner__img {
+      background: var(--ion-color-secondary);
+      padding: 0.5rem;
+      border: 1px solid var(--ion-color-secondary-shade);
+      border-radius: 6px;
+      height: 80px;
+    }
+  }
+}

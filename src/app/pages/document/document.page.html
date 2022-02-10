@@ -1,0 +1,65 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-title> <img src="assets/imgs/algarve-dark.svg" height="46" /> </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1 class="ion-text-uppercase">DOCUMENTOS</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <div *ngIf="(paperCategory$ | async) as paperCategory; else: loadingOrError">
+    <ion-list *ngFor="let category of paperCategory">
+      <ion-list-header class="ion-no-margin ion-text-uppercase">
+        <ion-label>{{ category.name }}</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngIf="category.papers?.length === 0">
+        <ion-icon name="alert-circle-outline" slot="start" color="dark"></ion-icon>
+        <ion-label>Sem Documentos</ion-label>
+      </ion-item>
+
+      <ion-item-sliding *ngFor="let paper of category.papers">
+        <ion-item>
+          <ion-icon name="document-text-outline" slot="start" color="dark"></ion-icon>
+          <ion-label (click)="viewDetail(paper.name, paper.papertext, paper.downloadUrl)">{{
+            paper.name
+            }}</ion-label>
+          <ion-note slot="end">{{ paper.datemodified | dateFormat: 'dd MMM yyyy' }}</ion-note>
+        </ion-item>
+        <ion-item-options *ngIf="paper.downloadUrl">
+          <ion-button color="secondary" (click)="downloadFile(paper.downloadUrl)">
+            <ion-icon name="arrow-down-circle-outline" slot="start"></ion-icon>
+            Download
+          </ion-button>
+          <ion-button color="secondary" (click)="shareFile(paper.downloadUrl)">
+            <ion-icon name="share-social-outline" slot="start"></ion-icon>
+            Compartilhar
+          </ion-button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-list-header [hidden]="paperCategory.length > 0">
+      <ion-label>Não existem documentos publicados</ion-label>
+    </ion-list-header>
+  </div>
+
+  <!-- Tratamento de erros -->
+
+  <ng-template #loadingOrError>
+    <ion-list-header *ngIf="(loadingError$ | async); else: loading">
+      <ion-label>Erro ao carregar documentos!</ion-label>
+    </ion-list-header>
+
+    <!-- Esqueleto do loading -->
+
+    <ng-template #loading>
+      <ion-list-header>
+        <ion-label>Carregando documentos...</ion-label>
+      </ion-list-header>
+    </ng-template>
+  </ng-template>
+</ion-content>

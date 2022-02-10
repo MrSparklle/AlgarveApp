@@ -1,0 +1,106 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button size="small" fill="outline" shape="round" (click)="confirmAddBooking()" [disabled]="!bookingForm.valid">
+        Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>REALIZAR RESERVA</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <form [formGroup]="bookingForm">
+
+    <ion-item>
+      <ion-icon name="information-circle" slot="start"></ion-icon>
+      <ion-label>Título</ion-label>
+      <ion-input type="text" formControlName="title" placeholder="Ex: Festa de Aniversário"></ion-input>
+    </ion-item>
+
+    <ion-item id="open-date-input">
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <ion-label>Date</ion-label>
+      <ion-label slot="end">{{ this.bookingForm.get('dateBooking').value | date:'dd MMMM yyyy' }}</ion-label>
+      <ion-popover trigger="open-date-input" show-backdrop="false" size="cover">
+        <ng-template>
+          <ion-datetime #popoverDatetime locale="pt-BR" size="cover" formControlName="dateBooking" presentation="date" [min]="bookingForm.value.dateCreated" [max]="maxDate">
+          </ion-datetime>
+        </ng-template>
+      </ion-popover>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="time" slot="start"></ion-icon>
+      <ion-label>Horário:</ion-label>
+      <ion-select multiple="true" okText="OK" cancelText="Cancelar" formControlName="period">
+        <ion-select-option value="Manhã">Manhã</ion-select-option>
+        <ion-select-option value="Tarde">Tarde</ion-select-option>
+        <ion-select-option value="Noite">Noite</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- <ion-item-group formGroupName="period">
+      <ion-item-divider color="light">Meu evento será:</ion-item-divider>
+      <ion-list inset>
+        <ion-item>
+          <ion-label>Manhã</ion-label>
+          <ion-checkbox formControlName="morning"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tarde</ion-label>
+          <ion-checkbox formControlName="afternoon"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Noite</ion-label>
+          <ion-checkbox formControlName="night"></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf="bookingForm.controls['period'].invalid && bookingForm.controls['period'].dirty">
+          <p color="danger">{{bookingForm.controls['period'].errors.pickone}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-item-group> -->
+
+    <ion-item>
+      <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+      <ion-label>Concordo com as Regras</ion-label>
+      <ion-toggle formControlName="readedRules"></ion-toggle>
+    </ion-item>
+
+    <ng-container *ngIf="profileService.checkAuthorization(profile,['sindico'])">
+      <ion-item formGroupName="profile">
+        <ion-icon name="calendar" slot="start"></ion-icon>
+        <ion-label>Apartamento</ion-label>
+        <ion-select placeholder="Selecione o Apto" okText="OK" cancelText="Cancelar" formControlName="suite">
+          <ion-select-option *ngFor="let suiteList of suiteList$ | async" [value]="suiteList.suite">
+            {{suiteList.suite}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="color-wand" slot="start"></ion-icon>
+        <ion-label>Destacado</ion-label>
+        <ion-toggle formControlName="highlight"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="cash" color="danger" slot="start"></ion-icon>
+        <ion-label color="danger">Não Realizar Cobrança</ion-label>
+        <ion-toggle formControlName="notBill" color="danger"></ion-toggle>
+      </ion-item>
+    </ng-container>
+  </form>
+  <!-- <pre>{{bookingForm.value | json}}</pre> -->
+</ion-content>

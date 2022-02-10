@@ -1,0 +1,7 @@
+{
+  "name": "Algarve",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

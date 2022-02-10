@@ -1,0 +1,46 @@
+<ion-card *ngIf="booking?.title; else: notExists">
+  <ion-item-divider class="ion-text-uppercase">
+    <ion-label>{{ booking.title }}</ion-label>
+    <ion-button
+      *ngIf="(booking.profile.id === profile.id || profileService.checkAuthorization(profile,['sindico'])) && booking.dateBooking > today"
+      slot="end" fill="clear" (click)="presentActionSheet(booking)">
+      <ion-icon name="options" color="tertiary"></ion-icon>
+    </ion-button>
+  </ion-item-divider>
+
+  <ion-card-content class="ion-no-padding">
+
+    <ion-item>
+      <ion-label position="floating">Reservado para o dia</ion-label>
+      <ion-input [value]="booking.dateBooking | dateFormat: 'dd MMM yyyy'" readonly="true" class="ion-text-capitalize">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Horário</ion-label>
+      <ion-input [value]="booking.period.join(', ')" readonly="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Valor da Reserva</ion-label>
+      <ion-input [value]="(booking.bookingPrice | currency: 'BRL') || 'Calculando...'" readonly="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Reservado para</ion-label>
+      <ion-input [value]="'Apto ' + booking.profile.suite" readonly="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Reserva feita em</ion-label>
+      <ion-input [value]="booking.dateCreated | dateFormat: 'dd MMM yyyy \'às\' HH:mm\'h\''" readonly="true"
+        class="ion-text-capitalize"></ion-input>
+    </ion-item>
+
+  </ion-card-content>
+</ion-card>
+<ng-template #notExists>
+  <ion-list-header>
+    <ion-label>Reserva não existe ou foi excluída</ion-label>
+  </ion-list-header>
+</ng-template>

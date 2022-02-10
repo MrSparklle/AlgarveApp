@@ -1,0 +1,32 @@
+ion-toolbar {
+  --background: transparent;
+  --border-color: transparent;
+}
+
+.swiper {
+  height: 100%;
+}
+
+.slide-image {
+  max-height: 43% !important;
+  max-width: 85% !important;
+}
+
+.finger {
+  max-height: 40px !important;
+  max-width: 40px !important;
+  margin-bottom: 10px !important;
+  opacity: 0.3;
+}
+
+b {
+  font-weight: 700;
+  // color: #000000;
+}
+
+p {
+  padding: 0 40px;
+  font-size: 16px;
+  line-height: 1.5;
+  // color: #60646b;
+}

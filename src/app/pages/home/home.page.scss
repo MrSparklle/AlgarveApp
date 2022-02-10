@@ -1,0 +1,20 @@
+ion-grid {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: 0;
+}
+
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.card-footer {
+  --background: var(--ion-color-tertiary);
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --inner-padding-bottom: 0;
+  --inner-padding-top: 0;
+}
+
+.slider-img {
+  max-height: 200px;
+}

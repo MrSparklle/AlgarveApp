@@ -1,0 +1,51 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button size="small" fill="outline" shape="round" (click)="addNotice()" [disabled]="!noticeForm.valid">
+        Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>ADICIONAR NOTÍCIA</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <form [formGroup]="noticeForm">
+    <ion-item>
+      <ion-label position="floating">Título da Notícia</ion-label>
+      <ion-input required formControlName="title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Texto da Notícia</ion-label>
+      <ion-textarea required rows="20" formControlName="text"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <div class="image-containner">
+        <div class="image-containner__item" *ngFor="let img of imgCarousel; let i = index">
+          <ion-img (click)="selectPicture(i)" class="image-containner__img" [src]="img || 'assets/imgs/add-image.svg'"></ion-img>
+          <ion-badge (click)="removePicture(i)" color="danger" class="ion-margin-top">Excluir</ion-badge>
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="list-outline" slot="start"></ion-icon>
+      <ion-label>Publicar</ion-label>
+      <ion-toggle (ionChange)="togglePublicar($event)"></ion-toggle>
+    </ion-item>
+    <!-- <pre>{{noticeForm.value | json}}</pre> -->
+  </form>
+</ion-content>

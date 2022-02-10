@@ -1,0 +1,93 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+    <ion-buttons slot="primary">
+
+      <ion-button (click)="confirmSendByMail()" [disabled]="gasForm.dirty">
+        <span color="dark" *ngIf="isIos">
+          Enviar
+        </span>
+        <ion-icon name="send" slot="icon-only" *ngIf="!isIos"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="saveGasBill()" [disabled]="saveDisable">
+        <span color="dark" *ngIf="isIos">
+          Salvar
+        </span>
+        <ion-icon name="checkmark-circle" slot="icon-only" *ngIf="!isIos"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>LEITURA DO GÁS</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <form [formGroup]="gasForm" novalidate (ngSubmit)="saveGasBill()">
+    <ion-list class="ion-no-padding">
+      <div *ngIf="allResident$ | async as allResident else loadingOrError">
+        <ion-list-header color="light" id="open-date-input">
+          <ion-label>Mês de Referência:</ion-label>
+          <ion-text class="ion-padding-end">{{ gasForm.value.referenceDate | date:'MMMM yyyy' }}</ion-text>
+          <ion-modal trigger="open-date-input">
+            <ng-template>
+              <ion-content force-overscroll="false">
+                <ion-datetime showDefaultButtons cancelText="Cancelar" doneText="OK" #popoverDatetime locale="pt-BR" size="cover" formControlName="referenceDate" presentation="month-year"
+                  (ionChange)="loadGasBill($event.target.value)">
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </ion-list-header>
+
+        <div formArrayName="residents">
+          <ion-item *ngFor="let resident of allResident; let i=index" [formGroupName]="i">
+            <ion-avatar slot="start">
+              <img [src]="resident.avatarUrl || 'assets/imgs/user.svg'">
+            </ion-avatar>
+            <ion-label>
+              <h2 class="ion-text-capitalize">{{resident.name}}</h2>
+              <p>
+                <ion-badge color="tertiary" *ngIf="!!resident.suite">APTO {{resident.suite}}</ion-badge>
+              </p>
+            </ion-label>
+            <ion-input type="number" slot="end" placeholder="000000" min="0" max="999999" formControlName="gas" [value]="resident.gas" class="ion-text-right"></ion-input>
+          </ion-item>
+        </div>
+        <ion-list-header [hidden]="allResident.length > 0">
+          <ion-label>Não existem moradores cadastrados</ion-label>
+        </ion-list-header>
+
+      </div>
+    </ion-list>
+  </form>
+
+  <!-- Tratamento de erros -->
+
+  <ng-template #loadingOrError>
+
+    <ion-list-header *ngIf="loadingError$ | async; else loading">
+      <ion-label>Erro ao carregar lista de moradores...</ion-label>
+    </ion-list-header>
+
+    <!-- Esqueleto do loading -->
+
+    <ng-template #loading>
+      <ion-list-header>
+        <ion-label>Carregando lista de moradores...</ion-label>
+      </ion-list-header>
+    </ng-template>
+
+  </ng-template>
+
+</ion-content>

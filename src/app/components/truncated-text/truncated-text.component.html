@@ -1,0 +1,9 @@
+<div *ngIf="text?.length <= limit">{{text}}</div>
+<div *ngIf="truncating && text?.length > limit">
+  <p class="textoFormatado">{{text | truncate : limit : true}}</p>
+  <ion-note (click)="truncating = false"><b>VER MAIS</b></ion-note>
+</div>
+<div *ngIf="!truncating && text?.length > limit">
+  <p class="textoFormatado">{{text}}</p>
+  <!-- <ion-note class="ion-padding-start" (click)="truncating = true">MENOS</ion-note> -->
+</div>

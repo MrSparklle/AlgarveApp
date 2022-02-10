@@ -1,0 +1,22 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="primary">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <pdf-viewer [src]="srcPDF" [render-text]="true" [original-size]="false" [autoresize]="true" [zoom]="zoomValue"
+    (after-load-complete)="stopLoading()" class="pdfviewer"></pdf-viewer>
+</ion-content>
+<ion-footer>
+  <ion-range min="0.5" max="4" color="dark" snaps="true" [(ngModel)]="zoomValue">
+    <ion-label color="dark" slot="start">0.5x</ion-label>
+    <ion-label color="dark" slot="end">4x</ion-label>
+  </ion-range>
+</ion-footer>

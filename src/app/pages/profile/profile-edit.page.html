@@ -1,0 +1,104 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title> <img src="assets/imgs/algarve-dark.svg" height="46" /> </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button size="small" fill="outline" shape="round" [disabled]="profileForm.invalid" (click)="saveProfile()">
+        Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>EDITAR PERFIL</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <form *ngIf="(profile | async); else: loading" [formGroup]="profileForm" novalidate class="ion-padding">
+    <div class="profile-container ion-text-center" (click)="selectPicture()">
+      <!--
+        <img class="profile-image" [src]="cameraAvatar ? cameraAvatar : (profileForm.get('avatarUrl').value ? profileForm.get('avatarUrl').value : 'assets/imgs/user.svg')">
+      -->
+      <ion-img class="profile-image"
+        [src]="cameraAvatar ? cameraAvatar : profileForm.get('avatarUrl').value ? profileForm.get('avatarUrl').value : 'assets/imgs/user.svg' ">
+      </ion-img>
+
+      <div class="profile-overlay">
+        <ion-icon name="camera-reverse-outline" color="medium"></ion-icon>
+      </div>
+    </div>
+    <div class="ion-text-center ion-padding">
+      <ion-button shape="round" size="small" color="dark" fill="outline" slot="start" (click)="deletePicture()">
+        <ion-icon name="trash-outline" class="ion-margin-end"></ion-icon>
+        Excluir Foto
+      </ion-button>
+    </div>
+
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-label>DADOS PESSOAIS</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="person-circle-sharp" class="ion-margin-end"></ion-icon>Nome do(s) Morador(es)
+        </ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">
+          <ion-icon name="mail-sharp" class="ion-margin-end"></ion-icon>E-mail
+        </ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item [class.ion-invalid]="profileForm.get('phone').hasError('pattern')">
+        <ion-label position="stacked">
+          <ion-icon name="call-sharp" class="ion-margin-end"></ion-icon>Telefone Fixo
+        </ion-label>
+        <ion-input formControlName="phone" type="tel" placeholder="(99) 9999-9999" appPhoneMask></ion-input>
+      </ion-item>
+      <div ion-text *ngIf="profileForm.get('phone').hasError('pattern') && profileForm.get('phone').touched"
+        color="danger" class="ion-padding">
+        <ion-text color="danger">* Número do telefone inválido</ion-text>
+      </div>
+      <ion-item>
+        <ion-label position="stacked">
+          <ion-icon name="phone-portrait-sharp" class="ion-margin-end"></ion-icon>Celular / Whatsapp
+        </ion-label>
+        <ion-input formControlName="mobile" type="tel" placeholder="(99) 99999-9999" appPhoneMask></ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group class="ion-margin-top">
+      <ion-item-divider color="light">
+        <ion-label>REDES SOCIAIS</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="logo-facebook" class="ion-margin-end"></ion-icon>facebook.com/
+        </ion-label>
+        <ion-input formControlName="facebook"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="logo-instagram" class="ion-margin-end"></ion-icon>instagram.com/
+        </ion-label>
+        <ion-input formControlName="instagram"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="logo-twitter" class="ion-margin-end"></ion-icon>twitter.com/
+        </ion-label>
+        <ion-input formControlName="twitter"></ion-input>
+      </ion-item>
+    </ion-item-group>
+  </form>
+  <ng-template #loading>
+    <ion-list-header>
+      <ion-label>Carregando perfil...</ion-label>
+    </ion-list-header>
+  </ng-template>
+</ion-content>

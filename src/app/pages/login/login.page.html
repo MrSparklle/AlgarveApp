@@ -1,0 +1,44 @@
+<ion-header></ion-header>
+<ion-content>
+
+  <div class="ion-text-center image-container">
+    <img class="logo" src="assets/imgs/algarve-dark-full.svg" />
+  </div>
+
+
+  <ion-row class="ion-align-items-end ion-justify-content-center ion-padding">
+    <form [formGroup]="loginForm" (submit)="doLogin()" novalidate>
+
+      <ion-item>
+        <ion-icon name="person-circle" slot="start"></ion-icon>
+        <ion-label>Apartamento</ion-label>
+        <ion-input formControlName="suite" type="number"></ion-input>
+      </ion-item>
+
+      <div *ngIf="loginForm.get('suite').hasError('required') && loginForm.get('suite').touched" class="ion-padding">
+        <ion-text color="danger">* Informe o número do seu apto!</ion-text>
+      </div>
+      <div ion-text *ngIf="loginForm.get('suite').hasError('min') && loginForm.get('suite').touched" color="danger"
+        class="ion-padding">
+        <ion-text color="danger">* Número do apto no mínimo 2 dígitos</ion-text>
+      </div>
+      <div ion-text *ngIf="loginForm.get('suite').hasError('max') && loginForm.get('suite').touched" color="danger"
+        class="ion-padding">
+        <ion-text color="danger">* Número do apto no máximo 2 dígitos</ion-text>
+      </div>
+
+      <ion-item>
+        <ion-icon name="key" slot="start"></ion-icon>
+        <ion-label>Senha</ion-label>
+        <ion-input formControlName="password" type="password" clearInput></ion-input>
+      </ion-item>
+      <br />
+
+      <ion-button expand="block" type="submit" [disabled]="!loginForm.valid" color="tertiary">Login</ion-button>
+      <p class="ion-text-center">
+        <ion-button fill="clear" (click)="forgotPassword()" color="toolbar">Esqueci Minha Senha</ion-button>
+      </p>
+
+    </form>
+  </ion-row>
+</ion-content>

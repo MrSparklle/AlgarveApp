@@ -1,0 +1,74 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge
+    *ngIf="profileService.checkAuthorization(profile,['sindico'])">
+    <ion-fab-button color="tertiary" (click)="presentActionSheet()">
+      <ion-icon name="menu"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>MORADORES</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Nome do Morador" (ionInput)="filterResident($event)"></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-list class="ion-no-padding">
+    <div *ngIf="filteredResidents as floors else loadingOrError">
+      <div *ngFor="let floor of floors">
+        <ion-item-divider color="light" *ngIf="!!floor.floor">
+          <ion-label>{{floor.floor}}° ANDAR</ion-label>
+        </ion-item-divider>
+
+        <ion-item button *ngFor="let resident of floor?.apartments"
+          [routerLink]="['/tabs', 'resident', 'resident-detail', resident.id]">
+          <ion-avatar slot="start">
+            <img [src]="resident.avatarUrl ? resident.avatarUrl : 'assets/imgs/user.svg'">
+          </ion-avatar>
+          <ion-label>
+            <h2 class="ion-text-capitalize">{{resident.name}}</h2>
+            <p>{{resident.position || 'Morador'}}</p>
+          </ion-label>
+          <ion-badge splot="end" color="tertiary" *ngIf="!!resident.suite">APTO {{resident.suite}}</ion-badge>
+        </ion-item>
+
+      </div>
+
+      <ion-list-header [hidden]="floors.length > 0">
+        <ion-label>Não existem moradores cadastrados</ion-label>
+      </ion-list-header>
+
+    </div>
+  </ion-list>
+  <!-- Tratamento de erros -->
+
+  <ng-template #loadingOrError>
+
+    <ion-list-header *ngIf="loadingError$ | async; else loading">
+      <ion-label>Erro ao carregar lista de moradores...</ion-label>
+    </ion-list-header>
+
+    <!-- Esqueleto do loading -->
+
+    <ng-template #loading>
+      <ion-list-header>
+        <ion-label>Carregando lista de moradores...</ion-label>
+      </ion-list-header>
+    </ng-template>
+
+  </ng-template>
+
+
+</ion-content>

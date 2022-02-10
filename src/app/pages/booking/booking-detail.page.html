@@ -1,0 +1,28 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>DETALHES DA RESERVA</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <app-booking-card *ngIf="booking$ | async as booking else loading" [booking]="booking" (bookingDeleted)="bookingDeleted()"></app-booking-card>
+
+  <ng-template #loading>
+    <ion-list-header>
+      <ion-label>Carregando...</ion-label>
+    </ion-list-header>
+  </ng-template>
+
+</ion-content>

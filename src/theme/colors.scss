@@ -1,0 +1,16 @@
+.ion-color-quaternary {
+  --ion-color-base: var(--ion-color-quaternary, #417e5c);
+  --ion-color-base-rgb: var(--ion-color-quaternary-rgb, 65, 126, 92);
+  --ion-color-contrast: var(--ion-color-quaternary-contrast, #fff);
+  --ion-color-contrast-rgb: var(--ion-color-quaternary-contrast-rgb, 255, 255, 255);
+  --ion-color-shade: var(--ion-color-quaternary-shade, #396f51);
+  --ion-color-tint: var(--ion-color-quaternary-tint, #548b6c);
+}
+.ion-color-toolbar {
+  --ion-color-base: var(--ion-color-toolbar, #242420);
+  --ion-color-base-rgb: var(--ion-color-toolbar-rgb, 36, 36, 32);
+  --ion-color-contrast: var(--ion-color-toolbar-contrast, #ffffff);
+  --ion-color-contrast-rgb: var(--ion-color-toolbar-contrast-rgb, 55, 255, 255);
+  --ion-color-shade: var(--ion-color-toolbar-shade, #20201c);
+  --ion-color-tint: var(--ion-color-toolbar-tint, #3a3a36);
+}

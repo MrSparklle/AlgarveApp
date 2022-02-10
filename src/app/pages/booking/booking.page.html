@@ -1,0 +1,109 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-title> <img src="assets/imgs/algarve-dark.svg" height="46" /> </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header color="secondary" class="ion-no-margin">
+    <ion-label>
+      <h1>RESERVAS</h1>
+    </ion-label>
+  </ion-list-header>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge>
+    <ion-fab-button color="tertiary" (click)="goToAddBooking()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-toolbar no-border-top>
+    <ion-segment value="nextbookings" [(ngModel)]="segments" color="tertiary" (ionChange)="ionSegmentChange($event)">
+      <ion-segment-button value="nextbookings">
+        <ion-label>Ativas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="historybookings">
+        <ion-label>Histórico</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="rules">
+        <ion-label>Regras</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div [ngSwitch]="true">
+    <div *ngSwitchCase="segments === 'nextbookings' || segments === 'historybookings'">
+      <div *ngIf="(allBookings$ | async) as bookings; else: loadingOrError">
+        <ion-card *ngFor="let booking of bookings" [routerLink]="['/tabs','booking', 'booking-detail', booking.id]">
+          <ion-grid
+            [class]="booking.highlight ? 'booking-higthlight': booking.dateBooking <= now ? 'booking-history': null">
+            <ion-row>
+              <ion-col size="3" class="ion-text-center booking-date">
+                <div class="ion-text-uppercase">{{ booking.dateBooking | dateFormat: 'EEE' }}</div>
+                <div id="day">{{ booking.dateBooking | dateFormat: 'dd' }}</div>
+                <div class="ion-text-uppercase">{{ booking.dateBooking | dateFormat: 'MMM' }}</div>
+                <div>{{ booking.dateBooking | dateFormat: 'yyyy' }}</div>
+              </ion-col>
+              <ion-col class="booking-text on-align-self-start ion-text-nowrap">
+                <ion-row>
+                  <ion-text>
+                    <h5 class="ion-no-margin ion-text-uppercase">{{ booking.title }}</h5>
+                  </ion-text>
+                </ion-row>
+                <ion-row>
+                  <ion-badge color="quaternary">APTO {{ booking.profile.suite }}</ion-badge>
+                </ion-row>
+                <ion-row>
+                  <span>
+                    <ion-icon name="alarm-outline" small color="medium"></ion-icon>
+                    {{ booking.period.join(', ') }}
+                  </span>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-no-padding" col-auto>
+                    <ion-icon name="navigate-circle-outline" small color="medium"></ion-icon>
+                    Salão de Festas
+                  </ion-col>
+                  <ion-col class="ion-no-padding ion-text-right ion-align-self-baseline">
+                    <ion-note color="medium" class="ion-text-capitalize">
+                      {{ booking.dateCreated | dateFormat: 'dd MMM yyyy' }}
+                    </ion-note>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+        <ion-list-header [hidden]="bookings.length > 0">
+          <ion-label>Não existem reservas</ion-label>
+        </ion-list-header>
+      </div>
+    </div>
+
+    <!-- Tratamento de erros -->
+
+    <ng-template #loadingOrError>
+      <div *ngIf="(loadingError$ | async); else: loading">
+        <ion-list-header>
+          <ion-label>Erro ao carregar reservas...</ion-label>
+        </ion-list-header>
+      </div>
+
+      <ng-template #loading>
+        <ion-list-header>
+          <ion-label>Carregando reservas...</ion-label>
+        </ion-list-header>
+      </ng-template>
+    </ng-template>
+
+    <div *ngSwitchCase="segments === 'rules'">
+      <ion-list-header class="ion-no-margin">
+        <ion-label>REGRAS DE UTILIZAÇÃO DO SALÃO DE FESTAS</ion-label>
+      </ion-list-header>
+      <ion-list class="ion-text-wrap ion-padding-horizontal ion-text-justify"
+        *ngFor=" let rule of (rulesBookings$ | async); let i=index">
+        {{ i + 1 }}. {{ rule.rule }}
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

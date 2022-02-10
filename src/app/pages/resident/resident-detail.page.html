@@ -1,0 +1,72 @@
+<ion-header no-border>
+  <ion-toolbar color="toolbar">
+    <ion-buttons slot="start" *ngIf="isIos">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <img src="assets/imgs/algarve-dark.svg" height="46">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge
+    *ngIf="profileService.checkAuthorization(profile,['sindico'])">
+    <ion-fab-button color="tertiary">
+      <ion-icon name="ellipsis-horizontal"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="bottom">
+      <ion-fab-button color="quaternary" (click)="generateCrash()">
+        <ion-icon name="logo-dropbox"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <div *ngIf='resident$ | async as resident else loading'>
+    <ion-list-header color="secondary" class="ion-no-margin">
+      <ion-label>
+        <div *ngIf="resident.suite; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <h1>APTO {{resident.suite}}</h1>
+        </ng-template>
+        <ng-template #elseBlock>
+          <h1 class="ion-text-uppercase">{{resident.position || 'Morador'}}</h1>
+        </ng-template>
+      </ion-label>
+    </ion-list-header>
+
+    <app-profile-card [profile]="resident"></app-profile-card>
+
+    <ion-item *ngIf="resident.email">
+      <ion-label position="floating">
+        <ion-icon name="mail" class="ion-margin-end"></ion-icon>E-mail
+      </ion-label>
+      <ion-input [value]="resident.email" [readonly]="true" type="email" class="ion-text-lowercase"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="resident.phone">
+      <ion-label position="floating">
+        <ion-icon name="call" class="ion-margin-end"></ion-icon>Telefone Fixo
+      </ion-label>
+      <ion-input [value]="resident.phone" [readonly]="true" type="tel"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="resident.mobile">
+      <ion-label position="floating">
+        <ion-icon name="phone-portrait" class="ion-margin-end"></ion-icon>Celular / Whatsapp
+      </ion-label>
+      <ion-input [value]="resident.mobile" [readonly]="true" type="tel"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="resident.parkingSpace">
+      <ion-label position="floating">
+        <ion-icon name="car" class="ion-margin-end"></ion-icon>N° da(s) Garagem(s):
+      </ion-label>
+      <ion-input [value]="resident.parkingSpace?.join(', ')" [readonly]="true"></ion-input>
+    </ion-item>
+  </div>
+  <ng-template #loading>
+    <ion-list-header>
+      <ion-label>Carregando...</ion-label>
+    </ion-list-header>
+  </ng-template>
+</ion-content>

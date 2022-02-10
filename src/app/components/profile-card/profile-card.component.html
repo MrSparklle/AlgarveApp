@@ -1,0 +1,24 @@
+<div class="image-container ion-text-center">
+  <img class="profile-image" [src]="profile?.avatarUrl ? profile.avatarUrl : 'assets/imgs/user.svg'">
+  <br />
+  <span class="notify-badge">{{profile?.position || 'Morador'}}</span>
+  <h1 class="ion-no-margin ion-text-capitalize">{{profile?.name}}</h1>
+  <ion-button shape="round" color="quaternary" size="small" *ngIf="profile?.suite">APTO {{profile.suite}}</ion-button>
+  <br />
+  <ion-button fill="clear" class="twitter" size="small" (click)="navigateTo('http://www.twitter.com/'+profile?.twitter)"
+    [disabled]="!profile?.twitter">
+    <ion-icon name="logo-twitter" slot="icon-only"></ion-icon>
+  </ion-button>
+  <ion-button fill="clear" class="facebook" size="small"
+    (click)="navigateTo('http://www.facebook.com/'+profile?.facebook)" [disabled]="!profile?.facebook">
+    <ion-icon name="logo-facebook" slot="icon-only"></ion-icon>
+  </ion-button>
+  <ion-button fill="clear" size="small" (click)="navigateTo('http://www.instagram.com/'+profile?.instagram)"
+    [disabled]="!profile?.instagram">
+    <ion-icon name="logo-instagram" color="dark" slot="icon-only"></ion-icon>
+  </ion-button>
+  <!-- <br />
+  <blockquote *ngIf="profile.aboutme">
+    <p class="quotation">{{profile.aboutme}}</p>
+  </blockquote> -->
+</div>

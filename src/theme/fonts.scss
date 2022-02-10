@@ -1,0 +1,46 @@
+$museo-sans-rounded-font-path: "/assets/fonts" !default;
+
+@font-face {
+  font-family: "Museo Sans Rounded";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Museo Sans Rounded"), local("Museo-Sans-Rounded-300"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-300.woff")
+      format("woff"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-300.woff2")
+      format("woff2"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-300.ttf")
+      format("truetype"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-300.svg#museo_sans_rounded300")
+      format("svg");
+}
+
+@font-face {
+  font-family: "Museo Sans Rounded";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Museo Sans Rounded"), local("Museo-Sans-Rounded-500"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-500.woff")
+      format("woff"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-500.woff2")
+      format("woff2"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-500.ttf")
+      format("truetype"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-500.svg#museo_sans_rounded500")
+      format("svg");
+}
+
+@font-face {
+  font-family: "Museo Sans Rounded";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Museo Sans Rounded"), local("Museo-Sans-Rounded-700"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-700.woff")
+      format("woff"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-700.woff2")
+      format("woff2"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-700.ttf")
+      format("truetype"),
+    url("#{$museo-sans-rounded-font-path}/museo-sans-rounded-700.svg#museo_sans_rounded700")
+      format("svg");
+}

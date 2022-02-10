@@ -1,0 +1,72 @@
+.image-container {
+  background: url('../../../assets/imgs/canvas-parallax-mountains.svg') repeat-x;
+
+  .notify-badge {
+    color: #242420;
+    position: relative;
+    right: -62px;
+    top: -41px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #333230;
+    background-color: #fff;
+    height: 2.1em;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 99em;
+    color: 333230;
+    padding: 0.3em 0.9em;
+    margin: 0.4rem 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+}
+
+.profile-image {
+  height: 160px;
+  width: 160px;
+  margin-top: 16px;
+  object-fit: cover;
+  border: 5px solid #eee;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+}
+
+.twitter {
+  color: #1da1f4;
+}
+
+.facebook {
+  color: #3b5998;
+}
+
+blockquote {
+  font-size: 14px;
+  background: #f9f9f9;
+  margin: 0em 0.5em 0.5em;
+  padding: 0.5em 10px;
+  quotes: '\201C''\201D''\2018''\2019';
+  line-height: 1.4;
+}
+
+.quotation:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.quotation::after {
+  color: #ccc;
+  content: close-quote;
+  font-size: 4em;
+  position: relative;
+  display: inline;
+  top: 0.4em;
+  line-height: 0.1em;
+  margin-left: 0.25em;
+}
