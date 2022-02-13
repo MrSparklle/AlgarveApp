@@ -1,30 +1,28 @@
 # Algarve Residential App
 
-A production mobile app developed using modern thecnologies for Android and iOS
+A production ready mobile app developed using modern technologies for Android and iOS
 
 
 [![Screen Shot 2022-02-10 at 13 43 44](https://user-images.githubusercontent.com/992049/153454832-3cd39190-1f02-449a-92da-b2ac7a940d0a.png)](https://www.youtube.com/watch?v=3LwJyKJN6_Q "Click to watch the app demonstration on Youtube")
-
-Developed using mobile technologies for Android and iOS
 
 *** This app is published at Google Play store at https://play.google.com/store/apps/details?id=br.com.residencialalgarve ***
 
 It is intended to be used only by Algarve Residential's residents, but can be customized for any condominium.
 
 **Frontend**: Webbiew using Ionic and Capacitor (I also have a React Native version in development)
- - Light and Darks themes
+ - Light and Dark themes
  - Per user/resident authentication
- - Users can read the news about his condominium with multiples pictures and gives him a like ❤️. When apps load, it loads the last 10 news, when user scroll the screen more news will be lazy loaded from backend. 
- - The manager can add, edit and exclude news.
- - Residents can book the party room choosign the date and period (day, afternoon, evening) (taxes are applicable).
- - Residents can see a list and search for others residents and contact him (if they allow).
+ - Users can read the news about his condominium with multiples pictures and gives it a like ❤️. When app loads, it load the last 10 news, when user scrolls more news will be lazy loaded from backend. 
+ - The manager can add, edit and delete news.
+ - Residents can book the party room by choosign the date and period (day, afternoon, evening) (taxes are applicable).
+ - Residents can view and search for others residents and contact them (if they allow).
  - Residents can read and download legal condominium documents through app.
 
 **Backend**: Firebase  using technologies like:
  - Firestore: NoSQL Database
- - Firestorage: for user images, news images and documents storage
- - Cloud Functions: Calculate taxes for user bookings, send reports to manager at end of the month, send residents gas bill consumption...
- - Push Notifications: User receive notifications from manager for news, the manager receive notifications when residents booking the party room, etc.
+ - Firestorage: user pictures, news pictures and document storage
+ - Cloud Functions: Calculate user bookings taxes, send manager reports at end of the month, send residents gas consumption bill...
+ - Push Notifications: User receive notifications about new news, the manager receive notifications when residents booking the party room...
  - Crashlytics: Error and bugging monitor.
  
 ### Screenshots:
