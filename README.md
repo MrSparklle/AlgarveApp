@@ -9,20 +9,20 @@ A production ready mobile app developed using modern technologies for Android an
 
 It is intended to be used only by Algarve Residential's residents, but can be customized for any condominium.
 
-**Frontend**: Webbiew using Ionic and Capacitor (I also have a React Native version in development)
+**Frontend**: Webview using Ionic and Capacitor (I also have a React Native version in development)
  - Light and Dark themes
  - Per user/resident authentication
- - Users can read the news about his condominium with multiples pictures and gives it a like ❤️. When app loads, it load the last 10 news, when user scrolls more news will be lazy loaded from backend. 
+ - Users can read the news about his condominium with multiple pictures and give it a like ❤️. When the app loads, it loads the last 10 news, when the user scrolls more news will be lazy loaded from the backend.
  - The manager can add, edit and delete news.
- - Residents can book the party room by choosign the date and period (day, afternoon, evening) (taxes are applicable).
- - Residents can view and search for others residents and contact them (if they allow).
- - Residents can read and download legal condominium documents through app.
+ - Residents can book the party room by choosing the date and period (day, afternoon, evening) (taxes are applicable).
+ - Residents can view and search for other residents and contact them (if they allow).
+ - Residents can read and download legal condominium documents through an app.
 
 **Backend**: Firebase  using technologies like:
  - Firestore: NoSQL Database
  - Firestorage: user pictures, news pictures and document storage
- - Cloud Functions: Calculate user bookings taxes, send manager reports at end of the month, send residents gas consumption bill...
- - Push Notifications: User receive notifications about new news, the manager receive notifications when residents booking the party room...
+ - Cloud Functions: Calculate user bookings taxes, send manager reports at the end of the month, send residents gas consumption bills...
+ - Push Notifications: Users receive notifications about new news, the manager receives notifications when residents book the party room...
  - Crashlytics: Error and bugging monitor.
  
 ### Screenshots:
